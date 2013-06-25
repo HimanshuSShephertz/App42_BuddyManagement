@@ -59,27 +59,6 @@ error: function(error) {
 }
 });
 ```
-Authenticate existing account.
-
-```
-var userName = $("#loginName").val();
-var pwd = $("#loginPwd").val();
-// Authenticating User.
-buddy.authenticate(userName, password,{
-success: function(object) {
-// get userName and sessionId from authenticate user response
-var userObj = JSON.parse(object)
-var name = userObj.app42.response.users.user.userName;
-var sId =  userObj.app42.response.users.user.sessionId;
-// save logged in user with sessionId to browser local storage.
- $.session.set('loggedInNameViaLogin', loggedInbuddyName);
-$.session.set('loggedInSessionIdViaLogin', loggedInbuddySessionId);
-},
-error: function(error) {
-// callback when user not found.
-}
-});
-```
 Adding Profile Details On Registration Page.
 
 ```
@@ -92,13 +71,33 @@ buddy.setLastName(lastName);
 buddy.createOrUpdateProfile(userName,{                   
 success: function(object) {
 // Calling New Function "moreDetails()",For Getting More Profile Details From User. 
-moreDetails(loggedInName, loggedInSessionId);
 },
 error: function(error) {
 // callback when error occurred.               
 }
 }); 
 
+```
+Authenticate existing account.
+
+```
+var userName = $("#loginName").val();
+var pwd = $("#loginPwd").val();
+// Authenticating User.
+buddy.authenticate(userName, pwd,{
+success: function(object) {
+// get userName and sessionId from authenticate user response
+var userObj = JSON.parse(object)
+var name = userObj.app42.response.users.user.userName;
+var sId =  userObj.app42.response.users.user.sessionId;
+// Save LoggedIn UserName with sessionId to browser's local storage.
+$.session.set('loggedInNameViaLogin', name);
+$.session.set('loggedInSessionIdViaLogin', sId);
+},
+error: function(error) {
+// callback when user not found.
+}
+});
 ```
 Adding More Profile Details When user Is Redirected To his/her Profile.
 
@@ -124,18 +123,17 @@ userObj.setHomeLandLine(profilePicName);
 Getting LoggedIn UserName And SessionId From Local Storage.
 
 ```
-var userNameThroughRegister  = $.session.get('loggedInName');
-var userNameThroughLogin  = $.session.get('loggedInNameViaLogin');
-var sessionIdViaRegister = $.session.get('loggedInSessionId');
-var sessionIdViaLogin = $.session.get('loggedInSessionIdViaLogin');
-//Setting SessionId For The LoggedIn User.
-buddy.setSessionId(sessionIdViaRegister || sessionIdViaLogin);
+// Get LoggedIn UserName And SessionId From Authenticate Response. And Set in to 
+var userName  = $.session.get('loggedInNameViaLogin');
+var sessionId = $.session.get('loggedInSessionIdViaLogin');
+//Setting SessionId In User Object("buddy") For The LoggedIn User.
+buddy.setSessionId(sessionId);
 ```
 Saving Profile.
 
 ```
-// Updating User Profile.
-buddy.createOrUpdateProfile(buddyNameThroughRegister || buddyNameThroughLogin,{   
+// Updating User Profile, With Updated Values From Edit Profile Page.
+buddy.createOrUpdateProfile(userName,{   
 success: function(object) {
 // Getting Updated Details.
 },
@@ -144,10 +142,11 @@ error: function(error) {
 }
 });
 ```
-Get Profile.
+Get Profile Details Of LoggedIn User.
 
 ```
-buddy.getUser(buddyNameThroughRegister || buddyNameThroughLogin,{
+// Getting Profile Details.
+buddy.getUser(userName,{
 success: function(object) {
 // Get Updated Profile.
 var detailsObj = JSON.parse(object)
@@ -168,6 +167,9 @@ error: function(error) {
 Get All Buddy_Sample_App users.
 
 ```
+// Get All Buddy_App Existing Users For Making Friends And Sharing.
+// All Users Are Those persons, 
+// Who Are Registered (Through Sign Up) In Buddy_App With Same "API KEY" & "SECRET KEY".
 buddy.getAllUsers({
 success: function(object) {
 // List Of All Buddy_Sample_App Users, Who Are Registered In SignUp Phase.
@@ -180,8 +182,13 @@ error: function(error) {
 Get Friend Profile.
 
 ```
+var friendName = "Your Friend Name";
+
+// Getting Friend Profile.
 buddy.getUser(friendName || name, {
 Success:function(object){
+
+// Getting Profile Details.
 var detailsObj = JSON.parse(object)
 var friendName = detailsObj.app42.response.users.user.userName
 var firstName = detailsObj.app42.response.users.user.profile.firstName;
@@ -189,6 +196,7 @@ var lastName = detailsObj.app42.response.users.user.profile.lastName;
 var city = detailsObj.app42.response.users.user.profile.city;
 var mobile = detailsObj.app42.response.users.user.profile.mobile;
 var sex = detailsObj.app42.response.users.user.profile.sex;
+
 // Getting Avatar URL From "officeLandLine".
 var buddyProfilePic = detailsObj.app42.response.users.user.profile.officeLandLine;
 },
@@ -219,6 +227,7 @@ Initialize App42Upload
 
 ```
 var upload  = new App42Upload();
+var userName = "Get UserName From Local Storage";
 var imageName = "name"+ new Date().getTime();
 //Getting Path Of Uploaded Files.
 var filePath = document.getElementById("filePath");
@@ -231,7 +240,7 @@ Upload Avatar.
 
 ```
 // Uploading Avatar.
-upload.uploadFileForUser(imageName, buddyNameThroughRegister || buddyNameThroughLogin, file, fileType, description, {   
+upload.uploadFileForUser(imageName, userName, file, fileType, description, {   
 Success:function(object){
 // Get Avatar Url And Set As "officeLandLine" In User profile.
 },
