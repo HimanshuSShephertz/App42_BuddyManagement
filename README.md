@@ -55,7 +55,7 @@ success: function(object) {
 // callback response when user is successfully created.
 },
 error: function(error) {
-// callback when user already created or email already existes.
+// callback when user already created or email already exists.
 }
 });
 ```
@@ -80,7 +80,7 @@ error: function(error) {
 }); 
 
 ```
-Authenticate existing account.
+LogIn, Authenticate existing account.
 
 ```
 var userName = $("#loginName").val();
@@ -110,6 +110,7 @@ var lstName = $("#buddyLastName").val();
 var mobNo = $("#mobNo").val();
 var city = $("#city").val();
 var sex = $('input[name=radioSex]:checked').val();
+// Getting Avatar Url & Name From Local Storage.
 var profilePic = $.session.get('profilePicViaUpload');
 var profilePicName = $.session.get('profilePicNameViaUpload');
 //Setting Values In User Profile.
@@ -119,7 +120,9 @@ userObj.setSex(sex);
 userObj.setDateOfBirth(new Date());
 userObj.setCity(city);
 userObj.setMobile(mobNo);
+// Setting Avatar Url In officeLandLine In User Profile.
 userObj.setOfficeLandLine(profilePic);
+// Setting Avatar Name In homeLandLine In User Profile.
 userObj.setHomeLandLine(profilePicName);
 ```
 Getting LoggedIn UserName And SessionId From Local Storage.
@@ -187,7 +190,7 @@ Get Friend Profile.
 var friendName = "Your Friend Name";
 
 // Getting Friend Profile.
-buddy.getUser(friendName || name, {
+buddy.getUser(friendName, {
 Success:function(object){
 
 // Getting Profile Details.
@@ -251,10 +254,10 @@ error:function(object){
 }
 });
 ```
-Get All Photos.
+Get All Photos For The LoggedIn User.
 
 ```
-upload.getAllFilesByUser(buddyNameThroughRegister || buddyNameThroughLogin, {   
+upload.getAllFilesByUser(userName, {   
 Success:function(object){
 //  Get All Photos.
 },
@@ -351,7 +354,7 @@ Create Group Of Buddies(Friends) By LoggedIn User.
 ```
 var groupName = "GroupName".
 // //Creating Group.
-buddy.createGroupByUser(userName, groupName , { 
+buddy.createGroupByUser(userName, groupName, { 
 success:function(object){
 // Group Is SuccessFully Created.
 // Now, User Can Add Friends To Group And Share Updates With Desired Group Members.
