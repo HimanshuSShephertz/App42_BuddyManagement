@@ -62,14 +62,16 @@ error: function(error) {
 Adding Profile Details On Registration Page.
 
 ```
-//Getting Values.
+// Getting Values.
 var firstName = $("#fName").val();
 var lastName = $("#lName").val();
+// Setting Values In User Profile.
 buddy.setFirstName(firstName);
 buddy.setLastName(lastName);
 // Update User Profile, By Setting his/her FirstName & LastName.
 buddy.createOrUpdateProfile(userName,{                   
 success: function(object) {
+// SuccessFully Updated.
 // Calling New Function "moreDetails()",For Getting More Profile Details From User. 
 },
 error: function(error) {
