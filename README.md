@@ -261,78 +261,6 @@ error:function(object){
 }
 });
 ```    
-  __App42 Storage:__
-  
-Initialize App42Storage 
-
-```
-var storage  = new App42Storage();
-var dbName = "NotificationList";     
-var collectionName = "NewNote";        
-var json = "{\"NOTE\":'"+noteName+"',\"OWNER\":'"+owner+"'}";  
-```
-Create And Share Notification With Friends.
-
-```
-storage.insertJSONDocument(dbName, collectionName, json,{
-Success:function(object){
-var storageObj = JSON.parse(object)
-//Get DocID From Success object,
-var DocId = storageObj.app42.response.storage.jsonDoc._id.$oid
-//For Sharing With Friends You Have To-
-//Revoke Access From Public,
-//And Grant Access For All Friends.
-},
-error:function(object){
-// callback when error occurred.
-}
-});
-```
-Revoke Access From Public On A Particular Doc.
-
-```
-//Creating List Of Persons, For Revoke Action.
-var aclListRevoke = new Array();
-var point1={
-user:"PUBLIC",
-permission:Permission.READ
-};
-aclListRevoke.push(point1)
-// Revoke Access From "Public", So That No One Can See This Notification Except LoggedIn User.
-storage.revokeAccessOnDoc(dbName, collectionName, noteId, aclListRevoke, {    
-success: function(object) {
-// Now, No One Can See This Notification Except LoggedIn User.
-},
-error: function(error) {
-// Callback when error occurred.
-}
-});
-```
-Grant Access For Friends.
-
-```
-var buddiesList = new Array();
-// Grant Access For Friends ("buddiesList"), So That Only They Can See This Notification.
-storage.grantAccessOnDoc(dbName, collectionName, noteId, buddiesList,{ 
-success: function(object) {
-},
-error: function(error) {
-}
-}); 
-```
-Share Notification With Friends In An Particular Group.
-
-```
-storage.insertJSONDocument(dbName, collectionName, json,{
-Success:function(object){
-//Revoke Access From Public, And Grant Access For All Friends In The Given Group.
-},
-error:function(object){
-// callback when error occurred.
-}
-});
-```
-
  __App42 BuddyManagement:__
   
 Initialize App42Buddy.
@@ -473,4 +401,51 @@ error:function(object){
 // Error Occurred If No Friends Found.
 }
 });
+```
+Sharing Notification With All Friends Of LoggedIn User.
+
+```
+ var message = "Message You Want To Share";
+// Sharing Notification With Friends.
+buddy.sendMessageToFriends(userName, message, {    
+success:function(object){
+// Successfully Shared.
+},
+error:function(object){
+// Error Occurred If No Friends Found.
+}
+});
+```
+
+Sharing Notification With All Friends In An Desired Given Group Of LoggedIn User.
+
+```
+var OwnerName = "Owner Of Group";
+var GroupName = "Name Of Group";
+// Sharing Notification With All Members of Given Group.
+buddy.sendMessageToGroup(userName, OwnerName, GroupName, message,{
+success:function(object){
+// Successfully Shared With Requested Group Members.
+},
+error:function(object){
+// Error Occurred If No Friends Found.
+}
+});
+```
+Get All Notifications.
+
+```
+// Getting All Notificcations.
+buddy.getAllMessages(userName,{  
+success:function(object){
+// List Of Notifications.
+// Notications Which Are Updated By You,
+// As Well As Notifications Which Are Shared By Your Friends For You.
+},
+error:function(object){
+// Error Occurred If No Notifications Found.
+}
+});
+
+
 ```
