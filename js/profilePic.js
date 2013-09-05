@@ -104,12 +104,12 @@ function getAllphotos(){
             var ul = $("#iGallery");
             if( Object.prototype.toString.call( photos ) === '[object Array]' ){    
                 for (var i in photos){
-                    html = "<li><a href='#avatarChangePopUp' data-rel='popup' data-position-to='origin' data-transition='flow' onclick = getAvatar('"+photos[i].url+"jpg"+"')><img src='"+photos[i].url+"jpg"+"' width='100' height='100' /></a></li>"
+                    html = "<li><a href='#avatarChangePopUp' data-rel='popup' data-position-to='origin' data-transition='flow' onclick = getAvatar('"+photos[i].url+"')><img src='"+photos[i].url+"' width='100' height='100' /></a></li>"
                     ul.append(html)
                 }
             }else{
                 var photos1 = allFilesObj.app42.response.upload.files.file
-                html = "<li><a href='#avatarChangePopUp' data-rel='popup' data-position-to='origin' data-transition='flow' onclick = getAvatar('"+photos1.url+"jpg"+"')><img src='"+photos1.url+"jpg"+"' width='100' height='100' /></a></li>"
+                html = "<li><a href='#avatarChangePopUp' data-rel='popup' data-position-to='origin' data-transition='flow' onclick = getAvatar('"+photos1.url+"')><img src='"+photos1.url+"' width='100' height='100' /></a></li>"
                 ul.append(html)
             }
         },

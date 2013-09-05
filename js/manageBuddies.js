@@ -112,7 +112,6 @@ function acceptRequest(){
     var sessionIdViaRegister = $.session.get('loggedInSessionId');
     var sessionIdViaLogin = $.session.get('loggedInSessionIdViaLogin');
     var buddyName = $.session.get('friendNameForAcceptingRequest');
-    console.log(buddyName);
     buddy.setSessionId(sessionIdViaRegister || sessionIdViaLogin);
     buddy.acceptFriendRequest(username, buddyName, {  // Accept Friend Request.
         success:function(object){
@@ -359,7 +358,6 @@ function createBuddyGroup2(){
     buddy.createGroupByUser(username, groupName, {
         success:function(object){
             var groupObj = JSON.parse(object)
-            console.log(groupObj);
             var buddyGroupName = groupObj.app42.response.buddies.buddy.groupName
             $("#group_list").append('<li><a href="#">'+buddyGroupName+'</a></li>');
             $("#allGroups_list").append('<li><a href="#">'+buddyGroupName+'</a></li>');

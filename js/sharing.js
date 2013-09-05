@@ -42,7 +42,6 @@ function shareNotificationWithFriends (){
             ReloadPage();
         },
         error:function(object){
-            console.log(object)
             var errorObj = JSON.parse(object)
             var errorCode = errorObj.app42Fault.appErrorCode
             if(errorCode == 4604){
@@ -180,7 +179,6 @@ function shareScoreWithFriend(friendName){
             window.location = ("#gameGameEndPage");
         },
         error:function(object){
-            console.log(object)
             var errorObj = JSON.parse(object)
             var errorCode = errorObj.app42Fault.appErrorCode
             if(errorCode == 4604){
@@ -220,7 +218,6 @@ function shareScoreWithAllFriends(){
             window.location = ("#gameGameEndPage");
         },
         error:function(object){
-            console.log(object)
             var errorObj = JSON.parse(object)
             var errorCode = errorObj.app42Fault.appErrorCode
             if(errorCode == 4604){
