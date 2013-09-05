@@ -7,19 +7,23 @@ Making Friends, Creating Groups, Share Notifications with your friends using [Ap
 
 _Features List :__
 
-1. User Authentication. 
-2. User Profile Integration.
-3. Multiple Avatar Management.
-4. Session Storage.
-5. Making Buddies.
-6. Create Groups.
-7. Share Notifications with your friends And Groups who has use this app.
-8. Support all mobile browsers and HTML5 compatible desktop browsers.
+1. User Registration.
+2. User Authentication.
+3. User Profile Integration.
+4. Multiple Avatar Management.
+5. Session Storage.
+6. Making Buddies.
+7. Create Groups.
+8. Share Notifications with your friends And Groups who has use this app.
+9. Save User Score.
+10. LeadeBoards, i.e Global LeaderBoard, Friends LeaderBoard, LeaderBoard WithIn a Group.
+11. Share your Score With Your Friends, Send Challenges To Your Friends For Beating Your Score.
+12. Support all mobile browsers and HTML5 compatible desktop browsers.
 
 # Running Sample:
 
 1. [Register] (https://apphq.shephertz.com/register) with App42 platform
-2. Go to dashboard and click on the App Create .
+2. Go to dashboard and click on the Create App.
 3. Fill all the mandatory fields and and checked the ACL true to get your APIKey and SecretKey.
 
 __Initialize App42 :__
@@ -27,8 +31,7 @@ __Initialize App42 :__
 Edit index.html file and put your APIKey and SecretKey overhere.
 
 ```
-App42.initialize("API KEY","SECRET KEY");
-
+App42.initialize("YOUR_API_KEY","YOUR_SECRET_KEY");
 ```
 
 #Design Details:
@@ -39,7 +42,6 @@ Initialize App42User
 
 ```
 var buddy  = new App42User();
-
 ```
 
 Sign up for a new account.
